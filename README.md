@@ -1,21 +1,43 @@
 # LoRaWanWeatherStation
+
 <h2>Introduction</h2>
-<p>This is an example of a nice LoRa application. The weather station contains a temperature sensor, air pressure sensor and humidity sensor. The data is read out and sent to Cayenne Mydevices and Weather Underground using LoRa and The Things Network.</p>
+<p>This is an example of a nice LoRa application. The weather station contains a temperature sensor, air pressure sensor and humidity sensor.
+The data is read out and sent to Cayenne Mydevices and Weather Underground using LoRa and The Things Network.</p>
 <p><img alt="file" src="https://ttnstaticfile.blob.core.windows.net/media/md_editor/image-1508417779575.large.png"><br>
 <img alt="file" src="https://ttnstaticfile.blob.core.windows.net/media/md_editor/image-1508417844287.large.png"></p>
                 
                   
 <h2>The Hardware</h2>
-<div>For this project I used the following hardware:</div><ul><li>Arduino Pro Mini 328 - 3.3V/8MHz&nbsp; (<a href="https://www.sparkfun.com/products/11114" rel="nofollow" target="_blank">https://www.sparkfun.com/products/11114</a>)</li><li>RFM95W&nbsp;(<a href="http://www.hoperf.com/rf_transceiver/lora/RFM95W.html" rel="nofollow" target="_blank">http://www.hoperf.com/rf_transceiver/lora/RFM95W.html</a>) (<a href="https://www.aliexpress.com/item/RFM95W-20dBm-100mW-868Mhz-915Mhz-DSSS-spread-spectrum-wireless-transceiver-module-SPI-SMD/32799536710.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/RFM95W-20dBm-100mW-868Mhz-915Mhz-DSSS-spread-spectrum-wireless-transceiver-module-SPI-SMD/32799536710.html</a>)</li><li>DHT22 (<a href="https://www.aliexpress.com/item/High-Precision-AM2302-DHT22-Digital-Temperature-Humidity-Sensor-Module-For-arduino-Uno-R3/32759158558.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/High-Precision-AM2302-DHT22-Digital-Temperature-Humidity-Sensor-Module-For-arduino-Uno-R3/32759158558.html</a>)</li><li>BME280 (<a href="https://www.aliexpress.com/item/I2C-SPI-BMP280-3-3-BMP280-3-3-Digital-Barometric-Pressure-Altitude-Sensor-High-Precision-Atmospheric/32775855945.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/I2C-SPI-BMP280-3-3-BMP280-3-3-Digital-Barometric-Pressure-Altitude-Sensor-High-Precision-Atmospheric/32775855945.html</a>)</li></ul>
+<div>For this project I used the following hardware:</div>
+<ul>
+<li>Arduino Pro Mini 328 - 3.3V/8MHz&nbsp; (<a href="https://www.aliexpress.com/item/Free-Shipping-1pcs-pro-mini-atmega328-Pro-Mini-328-Mini-ATMEGA328-3-3V-8MHz-for-Arduino/32342672626.html?spm=a2g0s.13010208.99999999.262.ISWa2j" rel="nofollow" target="_blank">https://www.aliexpress.com/item/Free-Shipping-1pcs-pro-mini-atmega328-Pro-Mini-328-Mini-ATMEGA328-3-3V-8MHz-for-Arduino/32342672626.html?spm=a2g0s.13010208.99999999.262.ISWa2j</a>)</li>
+<li>RFM95W&nbsp;(<a href="http://www.hoperf.com/rf_transceiver/lora/RFM95W.html" rel="nofollow" target="_blank">http://www.hoperf.com/rf_transceiver/lora/RFM95W.html</a>) (<a href="https://www.aliexpress.com/item/RFM95W-20dBm-100mW-868Mhz-915Mhz-DSSS-spread-spectrum-wireless-transceiver-module-SPI-SMD/32799536710.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/RFM95W-20dBm-100mW-868Mhz-915Mhz-DSSS-spread-spectrum-wireless-transceiver-module-SPI-SMD/32799536710.html</a>)</li>
+<li>DHT22 (<a href="https://www.aliexpress.com/item/High-Precision-AM2302-DHT22-Digital-Temperature-Humidity-Sensor-Module-For-arduino-Uno-R3/32759158558.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/High-Precision-AM2302-DHT22-Digital-Temperature-Humidity-Sensor-Module-For-arduino-Uno-R3/32759158558.html</a>)</li>
+<li>BME280 (<a href="https://www.aliexpress.com/item/I2C-SPI-BMP280-3-3-BMP280-3-3-Digital-Barometric-Pressure-Altitude-Sensor-High-Precision-Atmospheric/32775855945.html" rel="nofollow" target="_blank">https://www.aliexpress.com/item/I2C-SPI-BMP280-3-3-BMP280-3-3-Digital-Barometric-Pressure-Altitude-Sensor-High-Precision-Atmospheric/32775855945.html</a>)</li>
+</ul>
 
 <h2>The Wiring</h2>
-<p><img src="https://ttnstaticfile.blob.core.windows.net/media/django-summernote/2017-10-19/811b9b9d-8271-4e64-a113-7fa30a6935aa.png" style=""></p><p>The wiring is based on the scheme of this story:&nbsp;<a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank">https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself</a><a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank"></a></p><p>Follow the instrucitons of&nbsp;<a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank">BUILD THE CHEAPEST POSSIBLE NODE YOURSELF</a>&nbsp;to add the RFM95W to the Arduino Pro Mini.&nbsp;If successful, add the sensors as shown in the scheme above.&nbsp;</p><p>Finally, solder a 86 millimetre wire to the RFM95W antenna pin to increase the range.<br></p>
+<p><img src="https://ttnstaticfile.blob.core.windows.net/media/django-summernote/2017-10-19/811b9b9d-8271-4e64-a113-7fa30a6935aa.png" style=""></p>
+<p>The wiring is based on the scheme of this story:&nbsp;<a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank">https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself</a><a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank"></a></p>
+<p>Follow the instrucitons of&nbsp;<a href="https://www.thethingsnetwork.org/labs/story/build-the-cheapest-possible-node-yourself" rel="nofollow" target="_blank">BUILD THE CHEAPEST POSSIBLE NODE YOURSELF</a>&nbsp;to add the RFM95W to the Arduino Pro Mini.&nbsp;If successful, add the sensors as shown in the scheme above.&nbsp;</p>
+<p>Finally, solder a 86 millimetre wire to the RFM95W antenna pin to increase the range.<br></p>
 
 <h2>The Casing</h2>
-<p></p><p>To place the weather station somewhere, I drew a case and printed it with the 3d printer.&nbsp;</p><p>The models can be found on Thingiverse. Of course you can of course make your own variant.&nbsp;</p><p><a href="https://www.thingiverse.com/thing:2594618" rel="nofollow" target="_blank">https://www.thingiverse.com/thing:2594618</a>
+<p></p><p>To place the weather station somewhere, I drew a case and printed it with the 3d printer.&nbsp;</p>
+<p>The models can be found on Thingiverse. Of course you can of course make your own variant.&nbsp;</p>
+<p><a href="https://www.thingiverse.com/thing:2594618" rel="nofollow" target="_blank">https://www.thingiverse.com/thing:2594618</a>
 
 <h2>The Software</h2>
-<p>The code I have used can be found on GitHub: <a href="https://github.com/henri98/LoRaWanWeatherStation" rel="nofollow" target="_blank">https://github.com/henri98/LoRaWanWeatherStation</a>&nbsp;</p><p> I used Atom with PlatformIO to realize this project, so this is a PlatformIO project. </p><p>I used the folowing libarys: </p><ul><li>LoraMAC-in-C for Arduino thank to&nbsp;Thomas Telkamp and Matthijs Kooijman (<a href="https://github.com/matthijskooijman/arduino-lmic" rel="nofollow" target="_blank">https://github.com/matthijskooijman/arduino-lmic</a>)</li><li>CayenneLPP of The Things Network Arduino Library (<a href="https://github.com/TheThingsNetwork/arduino-device-lib" rel="nofollow" target="_blank">https://github.com/TheThingsNetwork/arduino-device-lib</a>)</li><li>Adafruit DHT Humidity &amp; Temperature Unified Sensor Library (<a href="https://github.com/adafruit/DHT-sensor-library" rel="nofollow" target="_blank">https://github.com/adafruit/DHT-sensor-library</a>)</li><li>Low-Power: Lightweight low power library for Arduino (<a href="https://github.com/rocketscream/Low-Power" rel="nofollow" target="_blank">https://github.com/rocketscream/Low-Power</a>)</li></ul><p><br></p>
+<p>The code I have used can be found on GitHub: <a href="https://github.com/henri98/LoRaWanWeatherStation" rel="nofollow" target="_blank">https://github.com/henri98/LoRaWanWeatherStation</a>&nbsp;</p>
+<p>I used Atom with PlatformIO to realize this project, so this is a PlatformIO project. </p>
+<p>I used the folowing libarys: </p>
+<ul>
+<li>LoraMAC-in-C for Arduino thank to&nbsp;Thomas Telkamp and Matthijs Kooijman (<a href="https://github.com/matthijskooijman/arduino-lmic" rel="nofollow" target="_blank">https://github.com/matthijskooijman/arduino-lmic</a>)</li>
+<li>CayenneLPP of The Things Network Arduino Library (<a href="https://github.com/TheThingsNetwork/arduino-device-lib" rel="nofollow" target="_blank">https://github.com/TheThingsNetwork/arduino-device-lib</a>)</li>
+<li>Adafruit DHT Humidity &amp; Temperature Unified Sensor Library (<a href="https://github.com/adafruit/DHT-sensor-library" rel="nofollow" target="_blank">https://github.com/adafruit/DHT-sensor-library</a>)</li>
+<li>Low-Power: Lightweight low power library for Arduino (<a href="https://github.com/rocketscream/Low-Power" rel="nofollow" target="_blank">https://github.com/rocketscream/Low-Power</a>)</li>
+</ul>
+<p><br></p>
 
 <h2>Weather Underground</h2>
 <p>To send data to Weather underground, create an HTTP integration in the Console of The Things Network.&nbsp;&nbsp;The data will be sent to the URL with a POST or a GET.&nbsp;&nbsp;The following script captures the data and sends it to Weather Underground. Register your own Personal Weather Station on&nbsp;<a href="https://www.wunderground.com/personal-weather-station/signup" rel="nofollow" target="_blank">https://www.wunderground.com/personal-weather-station/signup</a>&nbsp;</p>
