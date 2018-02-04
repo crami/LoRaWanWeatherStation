@@ -1,19 +1,12 @@
-/*******************************************************************************
- * ToDo:
- * - set NWKSKEY (value from staging.thethingsnetwork.com)
- * - set APPKSKEY (value from staging.thethingsnetwork.com)
- * - set DEVADDR (value from staging.thethingsnetwork.com)
- * - optionally comment #define DEBUG
- * - optionally comment #define SLEEP
- * - set TX_INTERVAL in seconds
- *
- *******************************************************************************/
+// All settings can be changed in settings.h
+
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <CayenneLPP.h>
 #include "DHT.h"
+#include "settings.h"
 
 // BME280 I2C address is 0x76(108)
 #define Addr 0x76
@@ -25,28 +18,12 @@
 #define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
 //#define DHTTYPE DHT21   // DHT 21 (AM2301)
 
-// LoRaWAN NwkSKey, your network session key, 16 bytes (from staging.thethingsnetwork.org)
-static const PROGMEM u1_t NWKSKEY[16] = {  };
-// LoRaWAN AppSKey, application session key, 16 bytes  (from staging.thethingsnetwork.org)
-static const u1_t PROGMEM APPSKEY[16] = {  };
-// LoRaWAN end-device address (DevAddr),  (from staging.thethingsnetwork.org)
-static const u4_t DEVADDR = 0x0; // <-- Change this address for every node!
-
-// show debug statements; comment next line to disable debug statements
-#define DEBUG
-// use low power sleep; comment next line to not use low power sleep
-#define SLEEP
-
-// Schedule TX every this many seconds (might become longer due to duty
-// cycle limitations).
-const unsigned TX_INTERVAL = 10*60;
-
 CayenneLPP lpp(51);
 DHT dht(DHTPIN, DHTTYPE);
-double cTemp0;
-double cTemp1;
-double pressure;
-double humidity;
+double cTemp0;    // from Pressure Sensor
+double cTemp1;    // Fron DHT22
+double pressure;  // from Pressure Sensor
+double humidity;  // Fron DHT22
 
 #ifdef SLEEP
   #include "LowPower.h"
@@ -74,6 +51,9 @@ void getSensorData(){
   unsigned int b1[24];
   unsigned int data[8];
   unsigned int dig_H1 = 0;
+
+  // Pressure Sensor
+  
   for(int i = 0; i < 24; i++)
   {
     // Start I2C Transmission
@@ -225,8 +205,27 @@ void getSensorData(){
   var2 = p * ((double) dig_P8) / 32768.0;
   pressure = (p + (var1 + var2 + ((double)dig_P7)) / 16.0) / 100;
 
+  // DHT22
+
   cTemp1 = dht.readTemperature();
   humidity = dht.readHumidity();
+
+  #ifdef DEBUG
+    Serial.println(F("Messured values:"));
+    Serial.println(F("Pressure Sensor:"));
+    Serial.print(F("Pressure:"));
+    Serial.print(pressure);
+    Serial.print(F(" Temperature:"));
+    Serial.print(cTemp0);
+    Serial.println();
+    
+    Serial.println(F("Humidity Sensor:"));
+    Serial.print(F("Humidity:"));
+    Serial.print(humidity);
+    Serial.print(F(" Temperature:"));
+    Serial.print(cTemp1);
+    Serial.println();
+  #endif
 }
 
 void onEvent (ev_t ev) {
